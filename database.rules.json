@@ -1,0 +1,30 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "admins": {
+      ".read": "auth != null",
+      ".write": "auth != null && root.child('adminUids').child(auth.uid).val() === true"
+    },
+    "adminUids": {
+      ".read": false,
+      ".write": false
+    },
+    "pages": {
+      ".read": true,
+      ".write": "auth != null && root.child('adminUids').child(auth.uid).val() === true"
+    },
+    "categories": {
+      ".read": true,
+      ".write": "auth != null && root.child('adminUids').child(auth.uid).val() === true"
+    },
+    "navigation": {
+      ".read": true,
+      ".write": "auth != null && root.child('adminUids').child(auth.uid).val() === true"
+    },
+    "notifications": {
+      ".read": true,
+      ".write": "auth != null && root.child('adminUids').child(auth.uid).val() === true"
+    }
+  }
+}

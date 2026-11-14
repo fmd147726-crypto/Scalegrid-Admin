@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Notifications - ScaleGrid Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-container">
+    <aside class="sidebar">
+      <div class="brand"><h2>ScaleGrid</h2></div>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-btn">📊 Dashboard</a>
+        <div class="nav-section-title">Website Control</div>
+        <a href="https://fmd147726-crypto.github.io/ScalwGrid/" target="_blank" class="nav-btn">🔗 Visit Site</a>
+        <div class="nav-section-title">Tools & Assets</div>
+        <a href="https://postimages.org" target="_blank" class="nav-btn">🖼️ PostImages</a>
+        <div class="nav-section-title">Categories</div>
+        <a href="ads.html" class="nav-btn">📢 Ads & Campaigns</a>
+        <a href="automations.html" class="nav-btn">⚡ Automations</a>
+        <a href="websites.html" class="nav-btn">🌐 Websites</a>
+        <a href="apps.html" class="nav-btn">📱 Apps</a>
+        <div class="nav-section-title">System</div>
+        <a href="notifications.html" class="nav-btn active">🔔 Notifications</a>
+        <a href="admin-users.html" class="nav-btn">👥 Admin Users</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <h1>Push <span>Notifications & Banners</span></h1>
+        <a href="index.html" class="btn-secondary" style="text-decoration: none;">← Back to Dashboard</a>
+      </header>
+
+      <section class="global-settings-card">
+        <div class="form-group" style="margin-bottom: 15px;">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 5px;">🎯 TARGET CATEGORY / PAGE</label>
+          <select id="noticeTarget" style="width: 100%; background: #000; border: 1px solid var(--border-color); color: #fff; padding: 12px; border-radius: 6px;">
+            <option value="general">🌍 General (All Pages / Site-wide)</option>
+            <option value="ads">📢 Ads & Campaigns</option>
+            <option value="automations">⚡ Automations</option>
+            <option value="websites">🌐 Websites</option>
+            <option value="apps">📱 Apps</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 15px;">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 5px;">📌 NOTICE TITLE</label>
+          <input type="text" id="noticeTitle" placeholder="NEW UPDATE RELEASED!">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 15px;">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 5px;">🖼️ BANNER IMAGE URL (Optional - leave blank for text-only)</label>
+          <input type="text" id="noticeBannerUrl" placeholder="https://i.postimg.cc/... (Paste image link here)">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 15px;">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 5px;">💬 NOTICE MESSAGE</label>
+          <textarea id="noticeMessage" rows="4" placeholder="Type message for users..." style="width: 100%; background: #000; border: 1px solid var(--border-color); color: #fff; padding: 12px; border-radius: 6px;"></textarea>
+        </div>
+
+        <button class="btn-primary" onclick="sendNotification()">🚀 Push Notification / Banner</button>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px;">🕒 Time will be set automatically to current time when you push</p>
+      </section>
+
+      <section class="categories-section">
+        <h2>Sent Notifications & Banners</h2>
+        <div id="sentNotificationsContainer" style="margin-top: 15px;">
+          <p style="color: var(--text-muted); font-size: 0.9rem;">No notifications yet</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="admin.js"></script>
+  <script type="module">
+    import { ref, push, remove, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    window.sendNotification = async function() {
+      const target = document.getElementById('noticeTarget').value;
+      const title = document.getElementById('noticeTitle').value;
+      const bannerUrl = document.getElementById('noticeBannerUrl').value;
+      const message = document.getElementById('noticeMessage').value;
+
+      if (!title || !message) {
+        alert("Please fill in both the Notice Title and Notice Message.");
+        return;
+      }
+
+      const db = window.db;
+      if (!db) {
+        alert("Database connection not ready yet. Please wait a second and try again.");
+        return;
+      }
+
+      try {
+        const notificationsRef = ref(db, 'notifications');
+        
+        const timestamp = new Date().toLocaleString();
+
+        await push(notificationsRef, {
+          target: target,
+          title: title,
+          bannerUrl: bannerUrl,
+          message: message,
+          timestamp: timestamp
+        });
+
+        alert("Notification pushed successfully!");
+        document.getElementById('noticeTitle').value = '';
+        document.getElementById('noticeBannerUrl').value = '';
+        document.getElementById('noticeMessage').value = '';
+      } catch (error) {
+        console.error("Error pushing notification:", error);
+        alert("Failed to push notification. Check console for details.");
+      }
+    };
+
+    window.deleteNotification = async function(notificationId) {
+      if (!confirm("Are you sure you want to delete this notification?")) return;
+
+      const db = window.db;
+      if (!db) return;
+
+      try {
+        await remove(ref(db, `notifications/${notificationId}`));
+      } catch (error) {
+        console.error("Error deleting notification:", error);
+        alert("Failed to delete notification.");
+      }
+    };
+
+    // Automatically load and render sent notifications on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      const checkDbInterval = setInterval(() => {
+        const db = window.db;
+        if (db) {
+          clearInterval(checkDbInterval);
+          const notificationsRef = ref(db, 'notifications');
+          
+          onValue(notificationsRef, (snapshot) => {
+            const container = document.getElementById('sentNotificationsContainer');
+            if (!container) return;
+
+            container.innerHTML = "";
+
+            if (!snapshot.exists()) {
+              container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.9rem;">No notifications yet</p>`;
+              return;
+            }
+
+            const data = snapshot.val();
+            const keys = Object.keys(data).reverse(); // Newest first
+
+            keys.forEach(key => {
+              const item = data[key];
+              const card = document.createElement('div');
+              card.style.cssText = "background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 16px; border-radius: 8px; margin-bottom: 12px; position: relative;";
+              
+              card.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-size: 0.75rem; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px; color: #aaa;">Target: ${item.target}</span>
+                  <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 0.75rem; color: var(--text-muted);">${item.timestamp}</span>
+                    <button class="btn-secondary" style="padding: 2px 8px; font-size: 0.75rem; color: #ff4d4d; border-color: rgba(255,77,77,0.3); cursor: pointer;" onclick="deleteNotification('${key}')">Delete</button>
+                  </div>
+              </div>
+              <h3 style="font-size: 1rem; color: #fff; margin-bottom: 4px;">${item.title}</h3>
+              <p style="font-size: 0.9rem; color: #ddd; margin-bottom: 8px;">${item.message}</p>
+              ${item.bannerUrl ? `<img src="${item.bannerUrl}" style="max-width: 100%; height: auto; border-radius: 4px; margin-top: 8px;" alt="Banner">` : ''}
+              `;
+              container.appendChild(card);
+            });
+          });
+        }
+      }, 200);
+    });
+  </script>
+</body>
+</html>

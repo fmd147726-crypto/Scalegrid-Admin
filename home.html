@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <title>Homepage Content | ScaleGrid Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-container">
+    <aside class="sidebar">
+      <div class="brand"><h2>ScaleGrid</h2></div>
+      <nav class="nav-menu" id="sidebarNavMenu" aria-label="Admin navigation">
+        <a href="index.html" class="nav-btn">📊 Dashboard</a>
+        <div class="nav-section-title">Website Control</div>
+        <a href="https://fmd147726-crypto.github.io/ScalwGrid/" target="_blank" rel="noopener noreferrer" class="nav-btn">🔗 Visit Site</a>
+        <div class="nav-section-title">Tools & Assets</div>
+        <a href="https://postimages.org" target="_blank" rel="noopener noreferrer" class="nav-btn">🖼️ PostImages</a>
+        <div class="nav-section-title">Categories</div>
+        <a href="home.html" class="nav-btn active" aria-current="page">🏠 Homepage Content</a>
+        <a href="ads.html" class="nav-btn">📢 Ads & Campaigns</a>
+        <a href="automations.html" class="nav-btn">⚡ Automations</a>
+        <a href="websites.html" class="nav-btn">🌐 Websites</a>
+        <a href="apps.html" class="nav-btn">📱 Apps</a>
+        <div class="nav-section-title">System</div>
+        <a href="notifications.html" class="nav-btn">🔔 Notifications</a>
+        <a href="admin-users.html" class="nav-btn">👥 Admin Users</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <h1>Homepage <span>Content</span></h1>
+        <button class="btn-secondary" type="button" onclick="logoutAdmin()">Sign out</button>
+      </header>
+      <p class="help-text">Changes are written to Firebase at <code>pages/general</code>. Existing homepage design remains in place; managed sections appear only when content is published.</p>
+
+      <section class="global-settings-card">
+        <h2>About ScaleGrid</h2>
+        <textarea id="homeAbout" rows="5" placeholder="Write your verified agency introduction"></textarea>
+        <button class="btn-primary" type="button" onclick="saveHomeAbout()">Save About</button>
+      </section>
+
+      <section class="global-settings-card">
+        <h2>Homepage Portfolio</h2>
+        <input id="homePortfolioTitle" type="text" placeholder="Project title">
+        <textarea id="homePortfolioDescription" placeholder="Project description"></textarea>
+        <input id="homePortfolioImage" type="text" placeholder="Image URL (optional)">
+        <input id="homePortfolioLink" type="text" placeholder="Project URL (optional)">
+        <button class="btn-primary" type="button" onclick="addHomePortfolio()">Publish Project</button>
+        <div id="manageHomePortfolio" class="managed-list"></div>
+      </section>
+
+      <section class="global-settings-card">
+        <h2>Testimonials</h2>
+        <textarea id="testimonialQuote" placeholder="Client-approved testimonial"></textarea>
+        <input id="testimonialName" type="text" placeholder="Client name">
+        <input id="testimonialRole" type="text" placeholder="Client role/company (optional)">
+        <button class="btn-primary" type="button" onclick="addHomeTestimonial()">Publish Testimonial</button>
+        <div id="manageHomeTestimonials" class="managed-list"></div>
+      </section>
+
+      <section class="global-settings-card">
+        <h2>Four-step Process</h2>
+        <input id="processStep" type="text" placeholder="Step title, e.g. Discover">
+        <textarea id="processDescription" placeholder="Explain this step"></textarea>
+        <button class="btn-primary" type="button" onclick="addHomeProcess()">Add Process Step</button>
+        <div id="manageHomeProcess" class="managed-list"></div>
+      </section>
+
+      <section class="global-settings-card">
+        <h2>Homepage FAQs</h2>
+        <input id="homeFaqQuestion" type="text" placeholder="Question">
+        <textarea id="homeFaqAnswer" placeholder="Answer"></textarea>
+        <button class="btn-primary" type="button" onclick="addHomeFaq()">Add FAQ</button>
+        <div id="manageHomeFaqs" class="managed-list"></div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

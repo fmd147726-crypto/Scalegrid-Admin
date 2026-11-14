@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScaleGrid Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-container">
+    <aside class="sidebar">
+      <div class="brand">
+        <h2>ScaleGrid</h2>
+      </div>
+      
+      <!-- Standard Menu Links Container -->
+      <nav class="nav-menu" id="sidebarNavMenu">
+        <a href="index.html" class="nav-btn active">📊 Dashboard</a>
+        
+        <div class="nav-section-title">Website Control</div>
+        <a href="https://fmd147726-crypto.github.io/ScalwGrid/" target="_blank" class="nav-btn">🔗 Visit Site</a>
+        
+        <div class="nav-section-title">Tools & Assets</div>
+        <a href="https://postimages.org" target="_blank" class="nav-btn">🖼️ PostImages</a>
+        
+        <div class="nav-section-title">Categories</div>
+        <a href="home.html">Homepage Content</a><a href="ads.html" class="nav-btn">📢 Ads & Campaigns</a>
+        <a href="automations.html" class="nav-btn">⚡ Automations</a>
+        <a href="websites.html" class="nav-btn">🌐 Websites</a>
+        <a href="apps.html" class="nav-btn">📱 Apps</a>
+
+        <div class="nav-section-title">System</div>
+        <a href="notifications.html" class="nav-btn">🔔 Notifications</a>
+        <a href="admin-users.html" class="nav-btn">👥 Admin Users</a>
+      </nav>
+
+      <div class="logout-container" style="padding-top: 15px;">
+        <a href="#" class="nav-btn logout-btn">🚪 Logout</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <h1>Overview <span>Dashboard</span></h1>
+      </header>
+
+      <!-- Navigation & Category Order Manager -->
+      <section class="global-settings-card" style="margin-bottom: 25px;">
+        <div class="settings-header">
+          <h3>🧭 Navigation & Category Menu Order</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 5px;">Assign numerical priority order to reorder menu items or add new categories dynamically.</p>
+        </div>
+        <div class="form-group" style="margin-top: 15px;">
+          <input type="text" id="menuCatName" placeholder="Category Name (e.g., AI Tools)" style="margin-bottom: 10px;">
+          <input type="text" id="menuCatFile" placeholder="File Link (e.g., aitools.html)" style="margin-bottom: 10px;">
+          <input type="number" id="menuCatOrder" placeholder="Display Order Number (e.g., 1, 2, 3)" style="margin-bottom: 15px;">
+          <button class="btn-primary" onclick="saveMenuCategory()">Add / Update Menu Item</button>
+        </div>
+      </section>
+
+      <section class="global-settings-card">
+        <div class="settings-header">
+          <h3>🌐 Global Site Settings</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 5px;">Update main links or configurations across all pages of your public website.</p>
+        </div>
+        <div class="settings-input-group" style="margin-top: 15px;">
+          <input type="text" id="globalLinkInput" placeholder="https://yourlink.com">
+          <button class="btn-primary" onclick="saveGlobalSettings()">Save Link</button>
+        </div>
+      </section>
+
+      <section class="categories-section">
+        <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <h2>Website Categories</h2>
+          <button class="btn-accent" onclick="addNewCategoryBox()">+ Add New Box</button>
+        </div>
+
+        <div class="categories-grid" id="categoriesGrid">
+          <div class="category-card">
+            <div class="category-icon">📢</div>
+            <h3>Ads & Campaigns</h3>
+            <div class="category-actions">
+              <a href="ads.html" class="btn-secondary">Manage Items</a>
+              <button class="btn-secondary" onclick="editBox(this)">Edit Box</button>
+            </div>
+            <div class="visibility-control">
+              <span>Visibility:</span>
+              <label class="switch">
+                <input type="checkbox" checked onchange="toggleVisibility(this)">
+                <span class="slider"></span>
+              </label>
+              <span class="status-label">ON</span>
+            </div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-icon">⚡</div>
+            <h3>Automations</h3>
+            <div class="category-actions">
+              <a href="automations.html" class="btn-secondary">Manage Items</a>
+              <button class="btn-secondary" onclick="editBox(this)">Edit Box</button>
+            </div>
+            <div class="visibility-control">
+              <span>Visibility:</span>
+              <label class="switch">
+                <input type="checkbox" checked onchange="toggleVisibility(this)">
+                <span class="slider"></span>
+              </label>
+              <span class="status-label">ON</span>
+            </div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-icon">🌐</div>
+            <h3>Websites</h3>
+            <div class="category-actions">
+              <a href="websites.html" class="btn-secondary">Manage Items</a>
+              <button class="btn-secondary" onclick="editBox(this)">Edit Box</button>
+            </div>
+            <div class="visibility-control">
+              <span>Visibility:</span>
+              <label class="switch">
+                <input type="checkbox" checked onchange="toggleVisibility(this)">
+                <span class="slider"></span>
+              </label>
+              <span class="status-label">ON</span>
+            </div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-icon">📱</div>
+            <h3>Apps</h3>
+            <div class="category-actions">
+              <a href="apps.html" class="btn-secondary">Manage Items</a>
+              <button class="btn-secondary" onclick="editBox(this)">Edit Box</button>
+            </div>
+            <div class="visibility-control">
+              <span>Visibility:</span>
+              <label class="switch">
+                <input type="checkbox" checked onchange="toggleVisibility(this)">
+                <span class="slider"></span>
+              </label>
+              <span class="status-label">ON</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Edit Category Modal -->
+  <div id="editCategoryModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background: #121214; border: 1px solid #ff2a85; box-shadow: 0 0 20px rgba(255,42,133,0.3); border-radius: 12px; width: 450px; padding: 25px; color: #fff;">
+      <h3 style="margin-bottom: 20px; font-size: 1.25rem; color: #ff2a85;">Edit Category Box</h3>
+      
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; font-size: 0.85rem; margin-bottom: 5px; color: #a1a1aa;">Category Title</label>
+        <input type="text" id="editModalTitle" style="width: 100%; padding: 10px; background: #18181b; border: 1px solid #27272a; border-radius: 6px; color: #fff;">
+      </div>
+
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; font-size: 0.85rem; margin-bottom: 5px; color: #a1a1aa;">Manage Page Link</label>
+        <input type="text" id="editModalLink" style="width: 100%; padding: 10px; background: #18181b; border: 1px solid #27272a; border-radius: 6px; color: #fff;">
+      </div>
+
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; font-size: 0.85rem; margin-bottom: 5px; color: #a1a1aa;">Icon Type</label>
+        <select id="editModalIconType" style="width: 100%; padding: 10px; background: #18181b; border: 1px solid #27272a; border-radius: 6px; color: #fff;">
+          <option value="emoji">Emoji Icon</option>
+          <option value="fontawesome">FontAwesome Icon Class (e.g. fas fa-desktop)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 25px;">
+        <label style="display: block; font-size: 0.85rem; margin-bottom: 5px; color: #a1a1aa;">Icon Value / Class</label>
+        <input type="text" id="editModalIconValue" style="width: 100%; padding: 10px; background: #18181b; border: 1px solid #27272a; border-radius: 6px; color: #fff;">
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <button type="button" onclick="deleteCategoryBox()" style="background: transparent; border: 1px solid #ef4444; color: #ef4444; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Delete</button>
+        <div style="display: flex; gap: 10px;">
+          <button type="button" onclick="closeEditModal()" style="background: transparent; border: 1px solid #71717a; color: #fff; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Cancel</button>
+          <button type="button" onclick="saveCategoryBox()" style="background: #9333ea; border: none; color: #fff; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500;">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

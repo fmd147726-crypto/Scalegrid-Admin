@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Automations - ScaleGrid Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-container">
+    <aside class="sidebar">
+      <div class="brand"><h2>ScaleGrid</h2></div>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-btn">📊 Dashboard</a>
+        <div class="nav-section-title">Website Control</div>
+        <a href="https://fmd147726-crypto.github.io/ScalwGrid/" target="_blank" class="nav-btn">🔗 Visit Site</a>
+        <div class="nav-section-title">Tools & Assets</div>
+        <a href="https://imgbb.com" target="_blank" class="nav-btn">☁️ ImgBB</a>
+        <a href="https://postimages.org" target="_blank" class="nav-btn">🖼️ PostImages</a>
+        <div class="nav-section-title">Categories</div>
+        <a href="ads.html" class="nav-btn">📢 Ads & Campaigns</a>
+        <a href="automations.html" class="nav-btn active">⚡ Automations</a>
+        <a href="websites.html" class="nav-btn">🌐 Websites</a>
+        <a href="apps.html" class="nav-btn">📱 Apps</a>
+        <div class="nav-section-title">System</div>
+        <a href="notifications.html" class="nav-btn">🔔 Notifications</a>
+        <a href="admin-users.html" class="nav-btn">👥 Admin Users</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <h1>Manage <span>Automations</span></h1>
+        <a href="index.html" class="btn-secondary" style="text-decoration: none;">← Back to Dashboard</a>
+      </header>
+
+      <!-- Section Reordering & Layout Manager -->
+      <section class="global-settings-card" style="margin-bottom: 25px;">
+        <h3>🔄 Page Section Layout & Visibility</h3>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Assign numerical order (1 = Top, 2 = Second, etc.) and toggle section visibility for the public page.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 15px;">
+          
+          <!-- Hero & Video Box -->
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+            <label style="color: #fff; font-size: 0.85rem; display: block; margin-bottom: 5px;">Hero Position:</label>
+            <input type="number" id="orderHero" value="1" style="width: 100%; margin-bottom: 8px;">
+            <div class="visibility-control" style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="visibleHero" checked onchange="toggleVisibility(this)" style="width: 18px; height: 18px; cursor: pointer;">
+              <span class="status-label" style="font-size: 0.8rem; font-weight: bold; color: var(--accent-neon);">ON</span>
+            </div>
+          </div>
+
+          <!-- Description Box -->
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+            <label style="color: #fff; font-size: 0.85rem; display: block; margin-bottom: 5px;">Description Position:</label>
+            <input type="number" id="orderDesc" value="2" style="width: 100%; margin-bottom: 8px;">
+            <div class="visibility-control" style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="visibleDesc" checked onchange="toggleVisibility(this)" style="width: 18px; height: 18px; cursor: pointer;">
+              <span class="status-label" style="font-size: 0.8rem; font-weight: bold; color: var(--accent-neon);">ON</span>
+            </div>
+          </div>
+
+          <!-- Portfolio Box -->
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+            <label style="color: #fff; font-size: 0.85rem; display: block; margin-bottom: 5px;">Portfolio Position:</label>
+            <input type="number" id="orderPortfolio" value="3" style="width: 100%; margin-bottom: 8px;">
+            <div class="visibility-control" style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="visiblePortfolio" checked onchange="toggleVisibility(this)" style="width: 18px; height: 18px; cursor: pointer;">
+              <span class="status-label" style="font-size: 0.8rem; font-weight: bold; color: var(--accent-neon);">ON</span>
+            </div>
+          </div>
+
+          <!-- Packages Box -->
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+            <label style="color: #fff; font-size: 0.85rem; display: block; margin-bottom: 5px;">Packages Position:</label>
+            <input type="number" id="orderPackages" value="4" style="width: 100%; margin-bottom: 8px;">
+            <div class="visibility-control" style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="visiblePackages" checked onchange="toggleVisibility(this)" style="width: 18px; height: 18px; cursor: pointer;">
+              <span class="status-label" style="font-size: 0.8rem; font-weight: bold; color: var(--accent-neon);">ON</span>
+            </div>
+          </div>
+
+          <!-- FAQs Box -->
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+            <label style="color: #fff; font-size: 0.85rem; display: block; margin-bottom: 5px;">FAQs Position:</label>
+            <input type="number" id="orderFaqs" value="5" style="width: 100%; margin-bottom: 8px;">
+            <div class="visibility-control" style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="visibleFaqs" checked onchange="toggleVisibility(this)" style="width: 18px; height: 18px; cursor: pointer;">
+              <span class="status-label" style="font-size: 0.8rem; font-weight: bold; color: var(--accent-neon);">ON</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Custom Section Creator Slot for Future Additions -->
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; margin-bottom: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+          <input type="text" id="newCustomSectionName" placeholder="Future Section Key (e.g., testimonials)" style="flex: 1; min-width: 200px;">
+          <input type="number" id="newCustomSectionOrder" placeholder="Order #" style="width: 100px;">
+          <button class="btn-secondary" onclick="addCustomLayoutSlot()">+ Add Custom Section Slot</button>
+        </div>
+
+        <button class="btn-primary" onclick="saveSectionLayout()">Save Section Layout & Visibility</button>
+      </section>
+
+      <!-- 1. Hero & Video Section Settings -->
+      <section class="global-settings-card" style="margin-bottom: 25px;">
+        <h3>🎬 Hero Video & Banner Controls</h3>
+        <div class="form-group" style="margin-top: 15px;">
+          <input type="text" id="heroVideoUrl" placeholder="Hero Video / Demo Script Link (YouTube / Drive)" style="margin-bottom: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <label style="color: var(--text-muted); font-size: 0.9rem;">Display Hero Video Section:</label>
+            <input type="checkbox" id="displayHeroVideo" style="width: 20px; height: 20px; cursor: pointer;">
+          </div>
+          <button class="btn-primary" onclick="saveHeroSettings()">Save Hero Settings</button>
+        </div>
+      </section>
+
+      <!-- 2. Service Description & Benefits Editor -->
+      <section class="global-settings-card" style="margin-bottom: 25px;">
+        <h3>📝 Service Description & Benefits</h3>
+        <div class="form-group" style="margin-top: 15px;">
+          <input type="text" id="serviceHeadline" placeholder="Service Main Headline" style="margin-bottom: 10px;">
+          <textarea id="serviceDescription" placeholder="Explain what custom automation services you offer and why clients should choose them..." style="width: 100%; height: 100px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px; border-radius: 6px; margin-bottom: 15px;"></textarea>
+          <button class="btn-primary" onclick="saveServiceDescription()">Save Description</button>
+        </div>
+      </section>
+
+      <!-- 3. Portfolio / Showcase Manager -->
+      <section class="global-settings-card" style="margin-bottom: 25px;">
+        <h3>+ Add Automation Portfolio / Showcase Item</h3>
+        <div class="form-group" style="margin-top: 15px;">
+          <input type="text" id="autoTitle" placeholder="Automation / Script Name" style="margin-bottom: 10px;">
+          <input type="text" id="autoImage" placeholder="Demo Image / Screenshot URL (ImgBB / PostImages)" style="margin-bottom: 10px;">
+          <input type="text" id="autoWebhook" placeholder="Demo Link / Webhook / Preview URL" style="margin-bottom: 15px;">
+          <button class="btn-primary" onclick="addAutomation()">Save Automation Item</button>
+        </div>
+        <!-- Live Management & Deletion List for Portfolio -->
+        <div id="managePortfolioList" style="margin-top: 15px;"></div>
+      </section>
+
+      <!-- 4. Packages & Special Offers Manager -->
+      <section class="global-settings-card" style="margin-bottom: 25px;">
+        <h3>📦 Add Automation Package / Special Offer</h3>
+        <div class="form-group" style="margin-top: 15px;">
+          <input type="text" id="packageName" placeholder="Package Name (e.g., Custom Telegram Bot Package)" style="margin-bottom: 10px;">
+          <input type="text" id="packagePrice" placeholder="Price / Billing Term (e.g., $150 or Custom)" style="margin-bottom: 10px;">
+          <textarea id="packageBullets" placeholder="Features / Bullet points (Put each feature on a new line)" style="width: 100%; height: 80px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px; border-radius: 6px; margin-bottom: 10px;"></textarea>
+          <input type="text" id="packageOrderLink" placeholder="Order / Contact Button Link (Telegram / WhatsApp)" style="margin-bottom: 15px;">
+          <button class="btn-primary" onclick="addPackageItem()">Add Package</button>
+        </div>
+        <!-- Live Management & Deletion List for Packages -->
+        <div id="managePackageList" style="margin-top: 15px;"></div>
+      </section>
+
+      <!-- 5. FAQ Manager -->
+      <section class="global-settings-card" style="margin-bottom: 25px;">
+        <h3>❓ Add Page FAQ</h3>
+        <div class="form-group" style="margin-top: 15px;">
+          <input type="text" id="faqQuestion" placeholder="Question (e.g., Where are the scripts hosted?)" style="margin-bottom: 10px;">
+          <textarea id="faqAnswer" placeholder="Detailed Answer..." style="width: 100%; height: 80px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px; border-radius: 6px; margin-bottom: 15px;"></textarea>
+          <button class="btn-primary" onclick="addFaqItem()">Add FAQ</button>
+        </div>
+        <!-- Live Management & Deletion List for FAQs -->
+        <div id="manageFaqList" style="margin-top: 15px;"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
